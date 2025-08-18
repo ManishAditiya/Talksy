@@ -48,14 +48,27 @@ const AppContextProvider = (props) => {
         if (userData) {
             const fetchChats = async () => {
                 const { data, error } = await supabase
-                    .from('chats')
-                    .select('*, userData:users!chats_rid_fkey(*)')
+                    .from("chats")
+                    .select(`
+      id,
+      message_id,
+      last_message,
+      updated_at,
+      message_seen,
+      users (
+        id,
+        email,
+        name,
+        avatar
+      )
+    `)
                     .eq('user_id', userData.id);
+
                 if (error) {
                     toast.error(error.message);
                     return;
                 }
-                setChatData(data.sort((a, b) => b.updated_at - a.updated_at));
+                setChatData(data);
             };
             fetchChats();
             const interval = setInterval(fetchChats, 10000);
