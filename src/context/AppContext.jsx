@@ -50,23 +50,17 @@ const AppContextProvider = (props) => {
                 const { data, error } = await supabase
                     .from("chats")
                     .select(`
-      id,
-      message_id,
-      last_message,
-      updated_at,
-      message_seen,
-      users (
-        id,
-        email,
-        name,
-        avatar
-      )
-    `)
+                    *,
+                    user:users!chats_user_id_fkey(*)
+                `)
                     .eq('user_id', userData.id);
 
                 if (error) {
+                    console.error(error);
                     toast.error(error.message);
                     return;
+                } else {
+                    console.log(data);
                 }
                 setChatData(data);
             };
