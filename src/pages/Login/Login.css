@@ -1,64 +1,122 @@
+/* background + layout */
 .login{
-    min-height: 100vh;
-    background: url(/background.png) no-repeat;
-    background-size: cover;
-    display: flex;
-    align-items: center;
-    justify-content: space-evenly;
+  position: relative;
+  min-height: 100vh;
+  background: url(/background.png) no-repeat center/cover;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;      /* form to the right */
+  padding-right: 6vw;
 }
-.login .logo{
-    width: max(20vw,200px);
+
+/* soft dark-to-clear overlay (helps logo/text pop) */
+.login::before{
+  content:"";
+  position:absolute; inset:0;
+  background: linear-gradient(90deg,
+              rgba(8,27,87,.55) 0%,
+              rgba(8,27,87,.25) 55%,
+              rgba(8,27,87,0) 75%);
 }
+
+/* left brand (icon + Talksy) */
+.brand{
+  position: absolute;
+  left: 8vw;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+  z-index: 1; /* above overlay */
+}
+
+.brand-icon{
+  width: clamp(500px, 18vw, 500px);
+  height: auto;
+  filter: drop-shadow(0 6px 14px rgba(0,0,0,.25));
+}
+
+.brand-text{
+  margin: 0;
+  color: #fff;
+  font-weight: 600;
+  font-size: clamp(40px, 7vw, 96px);
+  letter-spacing: .5px;
+}
+
+/* form card */
 .login-form{
-    background: white;
-    padding: 20px 30px;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    border-radius: 10px;
+  position: relative;
+  z-index: 2; /* above overlay */
+  background: #fff;
+  padding: 20px 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  border-radius: 10px;
+  width: clamp(280px, 28vw, 420px);
+  box-shadow: 0 15px 40px rgba(0,0,0,.15);
 }
-.login-form h2{
-    font-weight: 500;
-}
+
+.login-form h2{ font-weight: 600; margin: 0 0 4px; }
+
 .form-input{
-    padding: 8px 10px;
-    border: 1px solid #C9C9C9;
-    border-radius: 4px;
-    outline-color:#077EFF;
+  padding: 8px 10px;
+  border: 1px solid #C9C9C9;
+  border-radius: 4px;
+  outline-color:#077EFF;
 }
+
 .login-form button{
-    padding: 10px;
-    background-color: #077EFF;
-    color: white;
-    font-size: 16px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
+  padding: 10px;
+  background-color: #077EFF;
+  color: white;
+  font-size: 16px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
 }
+
 .login-term{
-    display: flex;
-    gap: 5px;
-    font-size: 12px;
-    color: #808080;
+  display: flex;
+  gap: 6px;
+  font-size: 12px;
+  color: #808080;
 }
+
 .login-toggle{
-    font-size: 13px;
-    color: #5C5C5C;
+  font-size: 13px;
+  color: #5C5C5C;
 }
+
 .login-toggle span{
-    font-weight: 500;
-    color: #077EFF;
-    cursor: pointer;
+  font-weight: 600;
+  color: #077EFF;
+  cursor: pointer;
 }
+
 .login-forgot{
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
 }
-@media (max-width:768px) {
-    .login{
-        flex-direction: column;
-        justify-content: center;
-        gap: 30px;
-    }
+
+/* responsive */
+@media (max-width: 768px){
+  .login{
+    justify-content: center;
+    padding-right: 0;
+  }
+  .brand{
+    position: static;
+    transform: none;
+    margin: 30px auto 0;
+  }
+  .brand-icon{ width: clamp(110px, 32vw, 180px); }
+  .brand-text{ font-size: clamp(32px, 12vw, 56px); }
+  .login-form{
+    width: min(92vw, 420px);
+  }
 }
