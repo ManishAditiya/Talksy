@@ -103,20 +103,28 @@
   gap: 6px;
 }
 
-/* responsive */
+/* --- responsive (mobile) --- */
 @media (max-width: 768px){
   .login{
+    flex-direction: column;       /* stack vertically */
     justify-content: center;
-    padding-right: 0;
+    align-items: center;
+    padding: 20px;
   }
+
+  /* brand block goes on top */
   .brand{
     position: static;
     transform: none;
-    margin: 30px auto 0;
+    margin-bottom: 24px;
   }
-  .brand-icon{ width: clamp(110px, 32vw, 180px); }
-  .brand-text{ font-size: clamp(32px, 12vw, 56px); }
+
+  .brand-icon{ width: clamp(100px, 30vw, 160px); }
+  .brand-text{ font-size: clamp(28px, 10vw, 52px); }
+
+  /* form below brand */
   .login-form{
-    width: min(92vw, 420px);
+    width: 100%;
+    max-width: 420px;
   }
 }
